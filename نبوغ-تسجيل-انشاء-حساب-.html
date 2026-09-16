@@ -1,0 +1,991 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>نبوغ | تسجيل الدخول وإنشاء الحساب</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@500;600;700&family=Almarai:wght@300;400;700&display=swap">
+  <style>
+    :root{
+      --mint:#8CD4C4;
+      --mint-deep:#2E9A85;
+      --mint-ink:#1F7A69;
+      --coral:#FC5454;
+      --pink:#F9CAC8;
+      --yellow:#FCD405;
+      --gray:#A6A6A6;
+      --light-gray:#D9D9D9;
+      --ink:#16211F;
+      --muted:#54635F;
+      --paper:#FFFFFF;
+      --bg:#EFF5F3;
+      --line:#E2ECE9;
+      --shadow:0 24px 70px rgba(36,50,52,.10);
+      --soft-shadow:0 12px 34px rgba(36,50,52,.08);
+      --radius-xl:34px;
+      --radius-lg:24px;
+      --radius-md:16px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 12% 12%, rgba(252,212,5,.12), transparent 22%),
+        radial-gradient(circle at 88% 88%, rgba(140,212,196,.18), transparent 26%),
+        var(--bg);
+      font-family:"Almarai","Dubai",Tahoma,Arial,sans-serif;
+      font-size:14px;
+      line-height:1.7;
+      -webkit-font-smoothing:antialiased;
+    }
+
+    button,input,select{font:inherit}
+    button{cursor:pointer}
+    a{color:inherit;text-decoration:none}
+
+    .page{
+      min-height:100%;
+      padding:16px;
+      display:grid;
+      place-items:center;
+    }
+
+    .auth-shell{
+      width:min(1180px,100%);
+      min-height:680px;
+      display:grid;
+      grid-template-columns:minmax(0,1.05fr) minmax(420px,.95fr);
+      background:rgba(255,255,255,.9);
+      border:1px solid rgba(140,212,196,.24);
+      border-radius:var(--radius-xl);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      position:relative;
+      backdrop-filter:blur(18px);
+    }
+
+    .form-panel{
+      padding:28px 34px 26px;
+      display:flex;
+      flex-direction:column;
+      background:rgba(255,255,255,.96);
+      position:relative;
+      z-index:2;
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      min-height:48px;
+      margin-bottom:18px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .brand img{
+      width:58px;
+      height:58px;
+      object-fit:contain;
+      border-radius:18px;
+      background:#fff;
+      box-shadow:0 8px 24px rgba(36,50,52,.08);
+      padding:5px;
+    }
+
+    .brand-copy strong{
+      display:block;
+      font-size:19px;
+      font-weight:700;
+      letter-spacing:.1px;
+    }
+    .brand-copy span{
+      color:var(--muted);
+      font-size:12px;
+      display:block;
+      margin-top:2px;
+    }
+
+    .back-link{
+      color:var(--mint-ink);
+      font-size:14px;
+      font-weight:700;
+      display:flex;
+      align-items:center;
+      gap:7px;
+      padding:10px 13px;
+      border-radius:12px;
+      transition:.2s ease;
+    }
+    .back-link:hover{background:#F1FAF8}
+
+    .auth-content{width:min(560px,100%);margin:0 auto;}
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      color:var(--mint-ink);
+      background:#EFFAF7;
+      border:1px solid #D6F1EB;
+      padding:7px 12px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:600;
+      margin-bottom:10px;
+    }
+
+    .eyebrow i{
+      width:8px;height:8px;border-radius:50%;background:var(--yellow);
+      box-shadow:0 0 0 4px rgba(252,212,5,.14);
+    }
+
+    h1{
+      margin:0;
+      font-family:"29LT Massira","Dubai",Tahoma,sans-serif;
+      font-size:clamp(27px,2.6vw,36px);
+      line-height:1.2;
+      letter-spacing:-.7px;
+    }
+
+    .lead{
+      margin:8px 0 18px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.75;
+      max-width:520px;
+    }
+
+    .segmented{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:6px;
+      padding:6px;
+      background:#F3F7F6;
+      border:1px solid #E5EFEC;
+      border-radius:16px;
+      margin-bottom:18px;
+    }
+
+    .segmented button{
+      border:0;
+      background:transparent;
+      color:#677475;
+      padding:10px 14px;
+      border-radius:11px;
+      font-weight:600;
+      font-size:13px;
+      transition:.2s ease;
+    }
+    .segmented button.active{
+      background:#fff;
+      color:var(--mint-ink);
+      box-shadow:0 6px 18px rgba(36,50,52,.07);
+    }
+
+    .view{display:none;animation:fade .24s ease}
+    .view.active{display:block}
+    @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .field{display:flex;flex-direction:column;gap:7px;margin-bottom:11px;position:relative}
+    .field.full{grid-column:1/-1}
+    .field label{font-size:13px;font-weight:600;color:#465354}
+
+    .control{
+      position:relative;
+      display:flex;
+      align-items:center;
+      border:1.5px solid #DFE9E7;
+      border-radius:11px;
+      background:#F6FAF9;
+      min-height:46px;
+      transition:.2s ease;
+      overflow:hidden;
+    }
+    .control:focus-within{
+      border-color:var(--mint-deep);
+      box-shadow:0 0 0 4px rgba(140,212,196,.16);
+    }
+    .control svg{width:20px;height:20px;margin-inline:15px 4px;color:#8A9998;flex:0 0 auto}
+    .control input,.control select{
+      flex:1;
+      width:100%;
+      border:0;
+      outline:0;
+      background:transparent;
+      padding:13px 10px 13px 14px;
+      color:var(--ink);
+      min-height:44px;
+      font-size:14px;
+    }
+    .control input::placeholder{color:#A7B2B1}
+    .control select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,#899594 50%),linear-gradient(135deg,#899594 50%,transparent 50%);background-position:18px calc(50% - 2px),13px calc(50% - 2px);background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-left:32px}
+
+    .password-toggle{
+      border:0;background:transparent;color:#849291;
+      width:44px;height:44px;border-radius:10px;margin-left:4px;
+      display:grid;place-items:center;
+    }
+    .password-toggle:hover{background:#F3F8F7}
+    .password-toggle svg{margin:0;width:19px;height:19px}
+
+    .row-between{display:flex;align-items:center;justify-content:space-between;gap:18px;margin:2px 0 14px;font-size:13px}
+    .check{display:flex;align-items:flex-start;gap:9px;color:#667273;line-height:1.65;font-size:13px}
+    .check input{width:18px;height:18px;margin-top:2px;accent-color:var(--mint-deep)}
+    .text-link{color:var(--mint-ink);font-weight:600}
+    .text-link:hover{text-decoration:underline}
+
+    .btn-primary{
+      width:100%;
+      border:0;
+      color:#fff;
+      background:var(--mint-deep);
+      min-height:50px;
+      border-radius:15px;
+      font-weight:700;
+      font-size:14px;
+      box-shadow:0 12px 24px rgba(86,187,167,.20);
+      transition:.2s ease;
+      position:relative;
+      overflow:hidden;
+    }
+    .btn-primary:hover{transform:translateY(-1px);box-shadow:0 16px 30px rgba(86,187,167,.25)}
+    .btn-primary:active{transform:none}
+
+    .btn-secondary{
+      min-height:50px;border-radius:14px;border:1.5px solid #DAE8E5;background:#fff;color:#485657;font-weight:800;padding:0 18px;
+    }
+
+    .row-end{justify-content:flex-start}
+
+    .social-login{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+    .social-btn{
+      min-height:48px;
+      border-radius:15px;
+      border:1.5px solid #DFE9E7;
+      background:#fff;
+      color:#263334;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      font-weight:700;
+      transition:.2s ease;
+      box-shadow:0 5px 15px rgba(36,50,52,.035);
+    }
+    .social-btn:hover{
+      transform:translateY(-1px);
+      border-color:#C9DBD7;
+      box-shadow:0 10px 24px rgba(36,50,52,.08);
+    }
+    .social-btn svg{width:21px;height:21px;flex:0 0 auto}
+    .social-btn span{white-space:nowrap;font-size:13px}
+    .apple-icon{width:22px!important;height:22px!important}
+
+
+    .child-code-btn{
+      width:100%; border:1.5px solid #DCE8E5; background:#F7FBFA; border-radius:11px;
+      min-height:56px; padding:10px 13px; display:flex; align-items:center; gap:11px; text-align:right;
+      color:var(--ink); transition:.18s ease;
+    }
+    .child-code-btn:hover{background:#F0F8F6;border-color:#C9DDD8;transform:translateY(-1px)}
+    .child-code-icon{width:34px;height:34px;border-radius:10px;background:#FFF8DB;color:#8A7600;display:grid;place-items:center;flex:0 0 auto;font-size:15px}
+    .child-code-btn strong{display:block;font-size:13.5px;font-weight:700}
+    .child-code-btn small{display:block;margin-top:2px;color:var(--muted);font-size:11.5px;font-weight:400;line-height:1.55}
+    .child-code-content{display:none;margin-top:4px;animation:fade .22s ease}
+    .child-code-content.active{display:block}
+    .child-back{border:0;background:transparent;color:var(--mint-ink);padding:0;margin:0 0 14px;font-size:12.5px;font-weight:700}
+    .child-title{font-size:25px!important}
+    .child-help{color:var(--muted);font-size:13px;line-height:1.75;margin:5px 0 16px}
+    .child-code-control input{direction:ltr;text-align:center;letter-spacing:.16em;font-weight:700}
+    .auth-footer{text-align:center;margin:18px 0 0;color:var(--muted);font-size:13px;font-weight:400}
+    .auth-footer a{color:var(--mint-ink);font-weight:700}
+    .signup-footer{margin-top:16px}
+    .login-parent-content.hidden{display:none}
+
+    .divider{display:flex;align-items:center;gap:10px;color:#A2ACAB;font-size:12px;margin:14px 0}
+    .divider:before,.divider:after{content:"";height:1px;background:#E7EEEE;flex:1}
+
+    .hint-card{
+      display:flex;align-items:flex-start;gap:11px;
+      background:#FFF9DB;
+      border:1px solid #F7E89D;
+      border-radius:15px;
+      padding:13px 14px;
+      color:#6F6114;
+      font-size:13px;
+      line-height:1.7;
+      margin-top:18px;
+    }
+    .hint-card svg{width:20px;height:20px;flex:0 0 auto;margin-top:1px}
+
+    .progress-wrap{margin:0 0 14px}
+    .progress-head{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#72807F;margin-bottom:8px}
+    .progress-head strong{color:var(--mint-ink)}
+    .progress{height:7px;border-radius:999px;background:#EAF1EF;overflow:hidden}
+    .progress span{display:block;height:100%;width:50%;background:linear-gradient(90deg,var(--mint-deep),var(--yellow));border-radius:999px;transition:.25s ease}
+    .signup-step{display:none}
+    .signup-step.active{display:block;animation:fade .24s ease}
+    .signup-actions{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:2px}
+    .signup-actions.single{grid-template-columns:1fr}
+
+    .terms-box{
+      background:#F8FBFA;border:1px solid #E4EEEC;border-radius:16px;padding:14px 14px 8px;margin-bottom:16px
+    }
+
+    .visual-panel{
+      position:relative;
+      overflow:hidden;
+      background:
+        linear-gradient(160deg,rgba(140,212,196,.97),rgba(119,203,185,.96));
+      padding:30px 28px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      isolation:isolate;
+    }
+
+    .visual-panel:before,.visual-panel:after{
+      content:"";position:absolute;border-radius:50%;z-index:-1;filter:blur(.2px)
+    }
+    .visual-panel:before{width:330px;height:330px;background:rgba(252,212,5,.18);top:-120px;left:-100px}
+    .visual-panel:after{width:420px;height:420px;background:rgba(255,255,255,.12);bottom:-190px;right:-130px}
+
+    .orb{position:absolute;border-radius:50%;z-index:-1}
+    .orb.one{width:34px;height:34px;background:var(--coral);top:19%;right:12%;box-shadow:0 0 0 12px rgba(252,84,84,.08)}
+    .orb.two{width:22px;height:22px;background:var(--yellow);bottom:25%;left:16%;}
+    .orb.three{width:16px;height:16px;background:#fff;bottom:14%;right:18%;opacity:.9}
+
+    .visual-top{display:flex;align-items:center;justify-content:space-between;gap:16px;color:#17493F}
+    .visual-badge{background:rgba(255,255,255,.62);border:1px solid rgba(255,255,255,.7);padding:8px 12px;border-radius:999px;font-size:13px;font-weight:800;backdrop-filter:blur(8px)}
+
+    .illustration{
+      width:min(480px,100%);
+      margin:12px auto 4px;
+      position:relative;
+      aspect-ratio:1.08/1;
+      display:grid;
+      place-items:center;
+    }
+
+    .brain-card{
+      width:76%;height:78%;border-radius:42% 42% 46% 46% / 42% 42% 54% 54%;
+      background:rgba(255,255,255,.92);
+      box-shadow:0 26px 55px rgba(33,105,91,.18);
+      display:grid;place-items:center;
+      position:relative;
+      transform:rotate(-2deg);
+    }
+    .brain-card:before{
+      content:"";position:absolute;inset:16px;border:3px dashed rgba(140,212,196,.45);border-radius:inherit
+    }
+
+    .brain-svg{width:72%;height:72%;filter:drop-shadow(0 12px 15px rgba(0,0,0,.05))}
+    .smile-line{position:absolute;bottom:8%;width:34%;height:50px;border:9px solid var(--yellow);border-top:0;border-left-color:transparent;border-right-color:transparent;border-radius:0 0 120px 120px;left:33%}
+
+    .float-card{
+      position:absolute;
+      background:#fff;
+      border-radius:18px;
+      box-shadow:var(--soft-shadow);
+      padding:12px 14px;
+      display:flex;align-items:center;gap:10px;
+      min-width:150px;
+      color:#435050;
+      font-weight:800;
+      font-size:13px;
+    }
+    .float-card i{width:38px;height:38px;border-radius:13px;display:grid;place-items:center;font-style:normal;font-size:18px}
+    .float-card.a{top:10%;right:2%;transform:rotate(2deg)}
+    .float-card.a i{background:#FFF1F1;color:var(--coral)}
+    .float-card.b{bottom:13%;left:0;transform:rotate(-3deg)}
+    .float-card.b i{background:#FFF8CF;color:#8C7800}
+
+    .visual-copy{color:#164C40;max-width:500px}
+    .visual-copy h2{font-family:"29LT Massira","Dubai",Tahoma,sans-serif;font-size:27px;line-height:1.35;margin:0 0 8px}
+    .visual-copy p{margin:0;line-height:1.8;font-size:14px;color:#2F665B}
+    .visual-points{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+    .visual-points div{background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.58);border-radius:15px;padding:11px;text-align:center;font-size:12px;font-weight:800;color:#25594F}
+
+    .error{color:#C63B3B;font-size:12px;display:none;margin-top:-3px}
+    .field.invalid .control{border-color:#F4A1A1;box-shadow:0 0 0 4px rgba(252,84,84,.08)}
+    .field.invalid .error{display:block}
+
+    .success{
+      display:none;text-align:center;padding:34px 6px 20px
+    }
+    .success.active{display:block;animation:fade .3s ease}
+    .success-icon{width:88px;height:88px;border-radius:28px;background:#E9F9F5;margin:0 auto 18px;display:grid;place-items:center;color:var(--mint-ink);box-shadow:0 12px 30px rgba(86,187,167,.14)}
+    .success h3{font-size:26px;margin:0 0 8px}
+    .success p{color:var(--muted);line-height:1.8;margin:0 0 22px}
+
+    @media (max-width:980px){
+      .auth-shell{grid-template-columns:1fr;max-width:720px;min-height:auto}
+      .visual-panel{order:-1;min-height:250px;padding:22px 24px}
+      .illustration{position:absolute;width:260px;height:245px;left:18px;top:24px;opacity:.98;margin:0}
+      .visual-copy{width:58%;position:relative;z-index:2;margin-top:80px}
+      .visual-copy h2{font-size:26px}
+      .visual-points{display:none}
+      .float-card{display:none}
+      .form-panel{padding:24px}
+    }
+
+    @media (max-width:650px){
+      .page{padding:0;background:#fff;display:block}
+      .auth-shell{border-radius:0;border:0;box-shadow:none;min-height:auto}
+      .visual-panel{min-height:170px;padding:16px 18px}
+      .illustration{width:150px;height:145px;left:-8px;top:10px}
+      .visual-copy{width:78%;margin-top:34px}
+      .visual-copy h2{font-size:20px}
+      .visual-copy p{font-size:13px;line-height:1.7}
+      .visual-top{font-size:12px}
+      .form-panel{padding:18px 16px 20px}
+      .topbar{margin-bottom:14px}
+      .brand img{width:50px;height:50px}
+      .brand-copy span{display:none}
+      .back-link{font-size:13px;padding:8px}
+      h1{font-size:25px}
+      .lead{font-size:14px;margin-bottom:14px}
+      .form-grid{grid-template-columns:1fr;gap:0}
+      .field.full{grid-column:auto}
+      .signup-actions{grid-template-columns:1fr}
+      .social-login{grid-template-columns:1fr 1fr;gap:10px}
+      .row-between{align-items:flex-start;flex-direction:column;gap:10px}
+    }
+
+    /* ═══════ MOBILE: hide the visual/illustration panel — show only the form ═══════ */
+    @media (max-width:650px){
+      .visual-panel{display:none !important;}
+      .page{padding:0;background:var(--bg);display:block;}
+      .auth-shell{
+        grid-template-columns:1fr;
+        min-height:100vh;
+        border-radius:0;border:0;box-shadow:none;backdrop-filter:none;
+        background:#fff;
+      }
+      .form-panel{
+        padding:20px 18px 32px;
+        min-height:100vh;
+        justify-content:flex-start;
+      }
+      .auth-content{width:100%;max-width:520px;}
+    }
+    /* Extra small phones */
+    @media (max-width:380px){
+      .form-panel{padding:18px 14px 28px;}
+      .social-login{grid-template-columns:1fr;}
+    }
+
+    /* ═══════ Device-size preview toggle ═══════ */
+    .device-toggle{
+      display:grid;place-items:center;width:42px;height:42px;border-radius:12px;
+      border:1.5px solid #DFE9E7;background:#fff;color:#5B6B69;transition:.18s ease;flex:0 0 auto;
+    }
+    .device-toggle:hover{color:var(--mint-deep);border-color:var(--mint);background:#F5FBF9;}
+    .device-toggle.active{color:var(--mint-deep);border-color:var(--mint);background:#EFFAF7;}
+    .device-toggle svg{width:20px;height:20px;}
+
+    #preview-stage{
+      position:fixed;inset:0;z-index:1000;display:none;
+      background:radial-gradient(120% 90% at 50% -10%, #16302a 0%, #0c1a17 60%, #0a1512 100%);
+    }
+    #preview-stage.open{display:flex;flex-direction:column;}
+    .preview-bar{
+      display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+      padding:12px 16px;background:rgba(10,22,19,.72);
+      -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:1px solid #24463d;
+    }
+    .preview-bar .pv-title{color:#d7f2eb;font-weight:700;font-size:13.5px;margin-inline-end:auto;display:flex;align-items:center;gap:9px;}
+    .preview-bar .pv-title svg{width:18px;height:18px;}
+    .pv-seg{display:inline-flex;background:#0c1a17;border:1px solid #294a41;border-radius:13px;padding:4px;gap:4px;}
+    .pv-seg button{
+      display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border-radius:9px;
+      border:none;background:transparent;color:#9fc4ba;font-weight:700;font-size:12.5px;cursor:pointer;transition:background .15s,color .15s;
+    }
+    .pv-seg button svg{width:16px;height:16px;}
+    .pv-seg button:hover{color:#e3f5f0;}
+    .pv-seg button.active{background:var(--mint-deep);color:#fff;}
+    .pv-close{
+      display:inline-flex;align-items:center;gap:8px;padding:8px 15px;border-radius:11px;
+      border:1px solid #3a5a51;background:transparent;color:#d7f2eb;font-weight:700;font-size:12.5px;cursor:pointer;transition:background .15s,border-color .15s;
+    }
+    .pv-close:hover{background:#12241f;border-color:#4f7268;}
+    .pv-close svg{width:15px;height:15px;}
+
+    .preview-scroll{flex:1;overflow:auto;display:flex;align-items:flex-start;justify-content:center;padding:28px 18px 40px;}
+    .device-wrap{flex:none;display:flex;flex-direction:column;align-items:center;}
+    .device-frame{
+      background:#0a0a0a;border-radius:40px;padding:13px;
+      box-shadow:0 32px 90px rgba(0,0,0,.55), inset 0 0 0 2px #2b2b2b;
+      flex:none;position:relative;
+      transition:width .3s cubic-bezier(.2,.8,.2,1), height .3s cubic-bezier(.2,.8,.2,1), border-radius .3s ease;
+    }
+    .device-frame .device-screen{width:100%;height:100%;border-radius:28px;overflow:hidden;background:#fff;position:relative;}
+    .device-frame iframe{width:100%;height:100%;border:0;display:block;background:#fff;}
+    .device-frame .device-notch{
+      position:absolute;top:13px;left:50%;transform:translateX(-50%);
+      width:132px;height:22px;background:#0a0a0a;border-radius:0 0 15px 15px;z-index:3;
+    }
+    .device-label{color:#8fb3a9;font-size:12px;font-weight:700;margin-top:15px;letter-spacing:.02em;}
+
+    .device-frame.mobile { width:390px;  height:748px; }
+    .device-frame.tablet { width:834px;  height:720px; border-radius:30px; }
+    .device-frame.tablet .device-screen{ border-radius:20px; }
+    .device-frame.desktop{ width:1280px; height:720px; border-radius:16px; padding:10px 10px 34px; }
+    .device-frame.desktop .device-notch{ display:none; }
+    .device-frame.desktop .device-screen{ border-radius:9px; }
+    .device-frame.desktop::after{
+      content:"";position:absolute;left:50%;bottom:9px;transform:translateX(-50%);
+      width:70px;height:6px;border-radius:6px;background:#2b2b2b;
+    }
+    @media(max-width:1360px){ .device-frame.desktop{ width:min(1280px, calc(100vw - 48px)); } }
+    @media(max-width:900px){ .device-frame.tablet{ width:calc(100vw - 40px); } .device-frame.desktop{ width:calc(100vw - 40px); } }
+    @media(max-width:430px){ .device-frame.mobile{ width:calc(100vw - 40px); } }
+
+    html[data-preview-frame] #preview-stage,
+    html[data-preview-frame] .device-toggle{ display:none !important; }
+  </style>
+</head>
+<body class="ui-auth">
+<div class="page">
+  <main class="auth-shell" aria-label="صفحات المصادقة لمنصة نبوغ">
+    <section class="form-panel">
+      <div class="topbar">
+        <div class="brand">
+          <img src="data:image/png;base64,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" alt="شعار نبوغ" />
+          <div class="brand-copy">
+            <strong>نبوغ</strong>
+            <span>للبناء العقلي للطفل</span>
+          </div>
+        </div>
+        <button class="device-toggle" type="button" onclick="openPreview()" aria-label="معاينة على أحجام الشاشات" title="معاينة على أحجام الشاشات (جوال / لوحي / سطح مكتب)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="4" width="13" height="10" rx="1.6"/><path d="M2.5 17.5h13"/><rect x="16.5" y="8" width="5" height="12" rx="1.4"/></svg>
+        </button>
+      </div>
+
+      <div class="auth-content">
+
+        <section id="loginView" class="view active">
+          <div class="eyebrow"><i></i> أهلاً بعودتك</div>
+          <h1>واصل رحلة طفلك نحو نبوغ أكبر</h1>
+          <div id="loginParentContent" class="login-parent-content">
+          <form id="loginForm" novalidate>
+            <div class="field" data-required>
+              <label for="loginId">البريد الإلكتروني أو رقم الجوال</label>
+              <div class="control">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v16H4z" opacity="0"/><path d="M3 5h18v14H3z"/><path d="m3 7 9 6 9-6"/></svg>
+                <input id="loginId" name="loginId" autocomplete="username" placeholder="example@email.com أو 05xxxxxxxx" />
+              </div>
+              <span class="error">يرجى إدخال البريد الإلكتروني أو رقم الجوال.</span>
+            </div>
+
+            <div class="field" data-required>
+              <label for="loginPassword">كلمة المرور</label>
+              <div class="control">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+                <input id="loginPassword" type="password" autocomplete="current-password" placeholder="أدخل كلمة المرور" />
+                <button class="password-toggle" type="button" aria-label="إظهار كلمة المرور" data-target="loginPassword">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"/><circle cx="12" cy="12" r="2.5"/></svg>
+                </button>
+              </div>
+              <span class="error">يرجى إدخال كلمة المرور.</span>
+            </div>
+
+            <div class="row-between row-end">
+              <a class="text-link" href="#" onclick="return false;">نسيت كلمة المرور؟</a>
+            </div>
+
+            <button class="btn-primary" type="submit">دخول إلى حسابي</button>
+          </form>
+
+          <div class="divider">أو تابع باستخدام</div>
+          <div class="social-login" aria-label="خيارات تسجيل الدخول الاجتماعي">
+            <button class="social-btn" type="button" aria-label="تسجيل الدخول باستخدام Google">
+              <svg class="google-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="#4285F4" d="M21.6 12.23c0-.74-.07-1.45-.19-2.14H12v4.05h5.38a4.6 4.6 0 0 1-2 3.02v2.63h3.24c1.9-1.75 2.98-4.33 2.98-7.56Z"/>
+                <path fill="#34A853" d="M12 22c2.7 0 4.97-.9 6.62-2.43l-3.24-2.63c-.9.6-2.05.96-3.38.96-2.61 0-4.82-1.76-5.61-4.13H3.04v2.7A10 10 0 0 0 12 22Z"/>
+                <path fill="#FBBC05" d="M6.39 13.77A6.01 6.01 0 0 1 6.08 12c0-.62.11-1.22.31-1.77v-2.7H3.04A10 10 0 0 0 2 12c0 1.61.39 3.13 1.04 4.47l3.35-2.7Z"/>
+                <path fill="#EA4335" d="M12 6.1c1.47 0 2.79.5 3.83 1.5l2.87-2.87C16.97 3.12 14.7 2 12 2a10 10 0 0 0-8.96 5.53l3.35 2.7C7.18 7.86 9.39 6.1 12 6.1Z"/>
+              </svg>
+              <span>Google</span>
+            </button>
+            <button class="social-btn" type="button" aria-label="تسجيل الدخول باستخدام Apple">
+              <svg class="apple-icon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+                <path d="M17.05 12.54c.03 3.06 2.68 4.08 2.71 4.09-.02.08-.42 1.43-1.39 2.82-.84 1.2-1.71 2.4-3.08 2.43-1.35.03-1.78-.8-3.32-.8-1.54 0-2.02.77-3.29.83-1.32.05-2.33-1.32-3.17-2.52-1.72-2.48-3.03-7.01-1.27-10.07a4.94 4.94 0 0 1 4.19-2.54c1.3-.03 2.54.88 3.33.88.79 0 2.28-1.09 3.84-.93.65.03 2.49.26 3.67 1.99-.09.06-2.19 1.28-2.16 3.82Zm-2.47-7.45c.7-.85 1.18-2.03 1.05-3.21-1.02.04-2.25.68-2.98 1.53-.65.75-1.22 1.95-1.07 3.1 1.13.09 2.29-.58 3-1.42Z"/>
+              </svg>
+              <span>Apple</span>
+            </button>
+          </div>
+
+          <div class="divider">أو</div>
+          <button class="child-code-btn" type="button" onclick="showChildCode()">
+            <span class="child-code-icon">✦</span>
+            <span><strong>الدخول بكود الطفل</strong><small>للدخول من جهاز الطفل باستخدام الكود الذي أنشأه ولي الأمر</small></span>
+          </button>
+          </div>
+
+          <div id="childCodeContent" class="child-code-content">
+            <button class="child-back" type="button" onclick="hideChildCode()">رجوع إلى تسجيل دخول ولي الأمر</button>
+            <div class="eyebrow"><i></i> دخول الطفل</div>
+            <h1 class="child-title">أدخل كود الطفل</h1>
+            <p class="child-help">استخدم كود الوصول الذي تم إنشاؤه للطفل من حساب ولي الأمر.</p>
+            <div class="field" data-required>
+              <label for="childCode">كود وصول الطفل</label>
+              <div class="control child-code-control">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="7" r="3"/><path d="M6 20c.7-3.8 2.8-5.8 6-5.8s5.3 2 6 5.8"/></svg>
+                <input id="childCode" maxlength="12" autocomplete="off" placeholder="مثال: NBG-2024" />
+              </div>
+            </div>
+            <button class="btn-primary" type="button">الدخول إلى حساب الطفل</button>
+          </div>
+
+          <p class="auth-footer">ليس لديك حساب؟ <a href="#" onclick="switchView('signup');return false;">أنشئ الآن</a></p>
+        </section>
+
+        <section id="signupView" class="view">
+          <div class="eyebrow"><i></i> حساب ولي أمر جديد</div>
+          <h1>ابدأ رحلة نبوغ لطفلك</h1>
+          <p class="lead">أنشئ حسابك بخطوات قصيرة، ثم أضف طفلك مباشرة لتظهر لك الأنشطة المناسبة لفئته العمرية.</p>
+
+          <div class="progress-wrap">
+            <div class="progress-head"><span id="progressText">الخطوة 1 من 2</span><strong id="progressLabel">البيانات الأساسية</strong></div>
+            <div class="progress"><span id="progressBar"></span></div>
+          </div>
+
+          <form id="signupForm" novalidate>
+            <div id="step1" class="signup-step active">
+              <div class="form-grid">
+                <div class="field full" data-required>
+                  <label for="fullName">الاسم الكامل</label>
+                  <div class="control">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.4-4 4.1-6 8-6s6.6 2 8 6"/></svg>
+                    <input id="fullName" placeholder="مثال: سارة أحمد" autocomplete="name" />
+                  </div>
+                  <span class="error">يرجى إدخال الاسم الكامل.</span>
+                </div>
+                <div class="field" data-required>
+                  <label for="email">البريد الإلكتروني</label>
+                  <div class="control">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 5h18v14H3z"/><path d="m3 7 9 6 9-6"/></svg>
+                    <input id="email" type="email" placeholder="name@email.com" autocomplete="email" />
+                  </div>
+                  <span class="error">يرجى إدخال بريد إلكتروني صحيح.</span>
+                </div>
+                <div class="field" data-required>
+                  <label for="mobile">رقم الجوال</label>
+                  <div class="control">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M10 5h4"/><path d="M11 18h2"/></svg>
+                    <input id="mobile" inputmode="tel" placeholder="05xxxxxxxx" autocomplete="tel" />
+                  </div>
+                  <span class="error">يرجى إدخال رقم الجوال.</span>
+                </div>
+                <div class="field" data-required>
+                  <label for="password">كلمة المرور</label>
+                  <div class="control">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+                    <input id="password" type="password" placeholder="8 أحرف على الأقل" autocomplete="new-password" />
+                    <button class="password-toggle" type="button" aria-label="إظهار كلمة المرور" data-target="password">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"/><circle cx="12" cy="12" r="2.5"/></svg>
+                    </button>
+                  </div>
+                  <span class="error">يجب ألا تقل كلمة المرور عن 8 أحرف.</span>
+                </div>
+                <div class="field" data-required>
+                  <label for="confirmPassword">تأكيد كلمة المرور</label>
+                  <div class="control">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m9 12 2 2 4-4"/><rect x="5" y="4" width="14" height="16" rx="3"/></svg>
+                    <input id="confirmPassword" type="password" placeholder="أعد إدخال كلمة المرور" autocomplete="new-password" />
+                    <button class="password-toggle" type="button" aria-label="إظهار كلمة المرور" data-target="confirmPassword">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"/><circle cx="12" cy="12" r="2.5"/></svg>
+                    </button>
+                  </div>
+                  <span class="error">كلمتا المرور غير متطابقتين.</span>
+                </div>
+              </div>
+              <div class="signup-actions single"><button id="nextBtn" class="btn-primary" type="button">التالي: معلومات إضافية</button></div>
+            </div>
+
+            <div id="step2" class="signup-step">
+              <div class="form-grid">
+                <div class="field" data-required>
+                  <label for="education">المستوى التعليمي</label>
+                  <div class="control">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m3 9 9-5 9 5-9 5-9-5Z"/><path d="M7 12v4c3 2 7 2 10 0v-4"/></svg>
+                    <select id="education"><option value="">اختر المستوى</option><option>ثانوي أو أقل</option><option>دبلوم</option><option>بكالوريوس</option><option>دراسات عليا</option></select>
+                  </div>
+                  <span class="error">يرجى اختيار المستوى التعليمي.</span>
+                </div>
+                <div class="field" data-required>
+                  <label for="age">العمر</label>
+                  <div class="control">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                    <input id="age" type="number" min="18" max="100" placeholder="مثال: 34" />
+                  </div>
+                  <span class="error">يرجى إدخال العمر.</span>
+                </div>
+                <div class="field" data-required>
+                  <label for="country">الدولة</label>
+                  <div class="control">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18"/><path d="M12 3a15 15 0 0 0 0 18"/></svg>
+                    <select id="country"><option value="">اختر الدولة</option><option>المملكة العربية السعودية</option><option>الإمارات العربية المتحدة</option><option>الكويت</option><option>البحرين</option><option>عُمان</option><option>قطر</option><option>أخرى</option></select>
+                  </div>
+                  <span class="error">يرجى اختيار الدولة.</span>
+                </div>
+                <div class="field" data-required>
+                  <label for="city">المدينة</label>
+                  <div class="control">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s6-5.2 6-11a6 6 0 1 0-12 0c0 5.8 6 11 6 11Z"/><circle cx="12" cy="10" r="2"/></svg>
+                    <input id="city" placeholder="اكتب اسم المدينة" />
+                  </div>
+                  <span class="error">يرجى إدخال المدينة.</span>
+                </div>
+              </div>
+
+              <div class="terms-box">
+                <label class="check"><input id="privacyTerms" type="checkbox" /> أوافق على <a class="text-link" href="#" onclick="return false;">سياسة الخصوصية والشروط والأحكام</a>.</label>
+                <div id="termsError" class="error" style="margin-top:8px">الموافقة على سياسة الخصوصية والشروط والأحكام مطلوبة لإنشاء الحساب.</div>
+              </div>
+
+              <div class="signup-actions">
+                <button class="btn-primary" type="submit">إنشاء الحساب</button>
+                <button id="backBtn" class="btn-secondary" type="button">السابق</button>
+              </div>
+            </div>
+          </form>
+
+          <p class="auth-footer signup-footer">لديك حساب بالفعل؟ <a href="#" onclick="switchView('login');return false;">سجّل الدخول</a></p>
+
+          <div id="signupSuccess" class="success">
+            <div class="success-icon">
+              <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16 9"/></svg>
+            </div>
+            <h3>تم إنشاء حسابك بنجاح</h3>
+            <p>خطوتك التالية هي إضافة طفلك حتى نتمكن من عرض الأنشطة المناسبة لعمره.</p>
+            <button class="btn-primary" type="button">الانتقال إلى إضافة طفل</button>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <aside class="visual-panel" aria-hidden="true">
+      <span class="orb one"></span><span class="orb two"></span><span class="orb three"></span>
+      <div class="visual-top">
+        <span class="visual-badge">تجربة آمنة • عربية • موجهة للأسرة</span>
+      </div>
+
+      <div class="illustration">
+        <div class="brain-card">
+          <svg class="brain-svg" viewBox="0 0 320 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M92 60c-29-5-52 14-54 42-19 9-26 32-15 51-8 25 7 50 31 56 8 24 38 37 61 24 18 18 50 19 69 2 27 10 54-5 60-31 24-9 36-35 25-57 12-22 1-50-23-59 2-27-22-49-49-45-15-20-48-25-68-9-12-1-25 8-37 26Z" fill="#fff" stroke="#FCD405" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M104 61c-2 16 8 28 25 33M62 103c19-2 31 6 37 25M87 170c-9-13-9-27 0-41M112 216c12-17 31-25 51-21M169 53c-9 13-9 26 0 39M205 72c12 14 14 30 6 47M231 115c-21 4-32 15-34 35M199 197c10-13 14-28 8-43M150 97c-19 9-25 27-17 45M132 143c11 9 24 11 37 6M169 149c-8 20-2 37 17 48" stroke="#8CD4C4" stroke-width="7" stroke-linecap="round"/>
+            <path d="M72 153c15 3 26 14 29 30M221 165c-15 0-26 7-32 19" stroke="#FC5454" stroke-width="7" stroke-linecap="round"/>
+          </svg>
+          <div class="smile-line"></div>
+        </div>
+        <div class="float-card a"><i>★</i><span>أنشطة مناسبة للعمر</span></div>
+        <div class="float-card b"><i>✓</i><span>تقدم واضح وبسيط</span></div>
+      </div>
+
+      <div class="visual-copy">
+        <h2>كل خطوة صغيرة اليوم، تصنع أثراً أكبر غداً.</h2>
+        <p>نبوغ يساعد ولي الأمر على اكتشاف الأنشطة المناسبة لطفله ومتابعة تطوره في تجربة واضحة ومحفزة.</p>
+        <div class="visual-points">
+          <div>خصوصية أولاً</div><div>تجربة عربية RTL</div><div>متابعة مستمرة</div>
+        </div>
+      </div>
+    </aside>
+  </main>
+</div>
+
+<!-- ═══════════════ DEVICE-SIZE PREVIEW STAGE ═══════════════ -->
+<div id="preview-stage" role="dialog" aria-label="معاينة الاستجابة على أحجام الشاشات">
+  <div class="preview-bar">
+    <span class="pv-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="4" width="13" height="10" rx="1.6"/><path d="M2.5 17.5h13"/><rect x="16.5" y="8" width="5" height="12" rx="1.4"/></svg>
+      معاينة الاستجابة
+    </span>
+    <div class="pv-seg" role="tablist">
+      <button type="button" data-size="mobile" onclick="setPreviewSize('mobile')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2.5" width="12" height="19" rx="2.4"/><path d="M10.5 18.5h3"/></svg>
+        جوال
+      </button>
+      <button type="button" data-size="tablet" onclick="setPreviewSize('tablet')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3.5" y="2.5" width="17" height="19" rx="2.2"/><path d="M10.5 18.5h3"/></svg>
+        لوحي
+      </button>
+      <button type="button" data-size="desktop" onclick="setPreviewSize('desktop')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="4" width="19" height="13" rx="1.8"/><path d="M8 21h8M12 17v4"/></svg>
+        سطح المكتب
+      </button>
+    </div>
+    <button type="button" class="pv-close" onclick="closePreview()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      إغلاق المعاينة
+    </button>
+  </div>
+  <div class="preview-scroll">
+    <div class="device-wrap">
+      <div class="device-frame mobile" id="device-frame">
+        <div class="device-notch"></div>
+        <div class="device-screen"><iframe id="preview-iframe" title="معاينة نبوغ" referrerpolicy="no-referrer"></iframe></div>
+      </div>
+      <div class="device-label" id="device-label">جوال · ⁦390 × 748⁩</div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ═══════════════ Device-size preview ═══════════════ */
+var IS_PREVIEW_FRAME = document.documentElement.hasAttribute('data-preview-frame');
+var PREVIEW_SNAPSHOT = '<!doctype html>\n' + document.documentElement.outerHTML;
+var previewLoaded = false;
+var PV_LABELS = {
+  mobile:'جوال · ⁦390 × 748⁩',
+  tablet:'لوحي · ⁦834 × 720⁩',
+  desktop:'سطح المكتب · ⁦1280 × 720⁩'
+};
+function openPreview(size){
+  if(IS_PREVIEW_FRAME) return;
+  var stage=document.getElementById('preview-stage');
+  var frame=document.getElementById('preview-iframe');
+  if(!stage||!frame) return;
+  if(!previewLoaded){
+    frame.srcdoc = PREVIEW_SNAPSHOT.replace(/<html/i, '<html data-preview-frame="1"');
+    previewLoaded=true;
+  }
+  setPreviewSize(size||'mobile');
+  stage.classList.add('open');
+  document.querySelector('.device-toggle') && document.querySelector('.device-toggle').classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function closePreview(){
+  var s=document.getElementById('preview-stage'); if(s) s.classList.remove('open');
+  var t=document.querySelector('.device-toggle'); if(t) t.classList.remove('active');
+  document.body.style.overflow='';
+}
+function setPreviewSize(size){
+  var df=document.getElementById('device-frame');
+  if(!df) return;
+  df.classList.remove('mobile','tablet','desktop');
+  df.classList.add(size);
+  var lbl=document.getElementById('device-label');
+  if(lbl) lbl.textContent = PV_LABELS[size]||'';
+  document.querySelectorAll('.pv-seg button').forEach(function(b){
+    b.classList.toggle('active', b.getAttribute('data-size')===size);
+  });
+}
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape' && document.getElementById('preview-stage') && document.getElementById('preview-stage').classList.contains('open')) closePreview();
+});
+</script>
+
+<script>
+  const loginView = document.getElementById('loginView');
+  const signupView = document.getElementById('signupView');
+
+  function switchView(view){
+    const isLogin = view === 'login';
+    loginView.classList.toggle('active',isLogin);
+    signupView.classList.toggle('active',!isLogin);
+    if(isLogin) hideChildCode();
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+
+  function showChildCode(){
+    document.getElementById('loginParentContent').classList.add('hidden');
+    document.getElementById('childCodeContent').classList.add('active');
+    const input=document.getElementById('childCode');
+    if(input) setTimeout(()=>input.focus(),80);
+  }
+  function hideChildCode(){
+    const parent=document.getElementById('loginParentContent');
+    const child=document.getElementById('childCodeContent');
+    if(parent) parent.classList.remove('hidden');
+    if(child) child.classList.remove('active');
+  }
+
+  document.querySelectorAll('.password-toggle').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const input=document.getElementById(btn.dataset.target);
+      input.type=input.type==='password'?'text':'password';
+      btn.setAttribute('aria-label',input.type==='password'?'إظهار كلمة المرور':'إخفاء كلمة المرور');
+    });
+  });
+
+  function validateField(field){
+    const input=field.querySelector('input,select');
+    let ok=true;
+    if(!input) return true;
+    if(input.type==='email') ok=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim());
+    else if(input.id==='password') ok=input.value.length>=8;
+    else if(input.id==='confirmPassword') ok=input.value.length>=8 && input.value===document.getElementById('password').value;
+    else ok=String(input.value).trim()!=='';
+    field.classList.toggle('invalid',!ok);
+    return ok;
+  }
+
+  document.querySelectorAll('[data-required] input,[data-required] select').forEach(input=>{
+    input.addEventListener('input',()=>validateField(input.closest('[data-required]')));
+    input.addEventListener('change',()=>validateField(input.closest('[data-required]')));
+  });
+
+  document.getElementById('loginForm').addEventListener('submit',e=>{
+    e.preventDefault();
+    const fields=[...e.currentTarget.querySelectorAll('[data-required]')];
+    const ok=fields.map(validateField).every(Boolean);
+    if(ok) alert('نموذج تجريبي: سيتم هنا تنفيذ تسجيل الدخول وربطه بخدمة المصادقة.');
+  });
+
+  const step1=document.getElementById('step1');
+  const step2=document.getElementById('step2');
+  const progressBar=document.getElementById('progressBar');
+  const progressText=document.getElementById('progressText');
+  const progressLabel=document.getElementById('progressLabel');
+
+  function goStep(n){
+    step1.classList.toggle('active',n===1);
+    step2.classList.toggle('active',n===2);
+    progressBar.style.width=n===1?'50%':'100%';
+    progressText.textContent=`الخطوة ${n} من 2`;
+    progressLabel.textContent=n===1?'البيانات الأساسية':'معلومات إضافية وموافقات';
+  }
+
+  document.getElementById('nextBtn').addEventListener('click',()=>{
+    const fields=[...step1.querySelectorAll('[data-required]')];
+    const ok=fields.map(validateField).every(Boolean);
+    if(ok) goStep(2);
+  });
+  document.getElementById('backBtn').addEventListener('click',()=>goStep(1));
+
+  document.getElementById('signupForm').addEventListener('submit',e=>{
+    e.preventDefault();
+    const fields=[...step2.querySelectorAll('[data-required]')];
+    const okFields=fields.map(validateField).every(Boolean);
+    const privacyTerms=document.getElementById('privacyTerms').checked;
+    document.getElementById('termsError').style.display=privacyTerms?'none':'block';
+    if(okFields && privacyTerms){
+      e.currentTarget.style.display='none';
+      document.querySelector('.progress-wrap').style.display='none';
+      document.getElementById('signupSuccess').classList.add('active');
+    }
+  });
+</script>
+<link rel="stylesheet" href="nobogh-redesign.css">
+</body>
+</html>
