@@ -1,0 +1,125 @@
+{
+  "landing": {
+    "errors": [],
+    "sha256_equal": true,
+    "sizes": {
+      "1440": {
+        "width": 1440,
+        "scroll": 1440,
+        "body": 1440,
+        "overflows": []
+      },
+      "768": {
+        "width": 768,
+        "scroll": 768,
+        "body": 768,
+        "overflows": []
+      },
+      "390": {
+        "width": 390,
+        "scroll": 390,
+        "body": 390,
+        "overflows": []
+      },
+      "320": {
+        "width": 320,
+        "scroll": 320,
+        "body": 320,
+        "overflows": []
+      }
+    }
+  },
+  "auth": {
+    "errors": [],
+    "sha256_equal": true,
+    "sizes": {
+      "1440": {
+        "width": 1440,
+        "scroll": 1440,
+        "body": 1440,
+        "overflows": []
+      },
+      "768": {
+        "width": 768,
+        "scroll": 768,
+        "body": 768,
+        "overflows": []
+      },
+      "390": {
+        "width": 390,
+        "scroll": 390,
+        "body": 390,
+        "overflows": []
+      },
+      "320": {
+        "width": 320,
+        "scroll": 320,
+        "body": 320,
+        "overflows": []
+      }
+    },
+    "signup": true,
+    "child_code": true
+  },
+  "parent": {
+    "errors": [],
+    "sha256_equal": true,
+    "sizes": {
+      "1440": {
+        "width": 1440,
+        "scroll": 1440,
+        "body": 1440,
+        "overflows": []
+      },
+      "768": {
+        "width": 768,
+        "scroll": 768,
+        "body": 768,
+        "overflows": []
+      },
+      "390": {
+        "width": 390,
+        "scroll": 390,
+        "body": 390,
+        "overflows": []
+      },
+      "320": {
+        "width": 320,
+        "scroll": 320,
+        "body": 320,
+        "overflows": []
+      }
+    },
+    "activities": true
+  },
+  "admin": {
+    "errors": [],
+    "sha256_equal": true,
+    "sizes": {
+      "1440": {
+        "width": 1440,
+        "scroll": 1440,
+        "body": 1440,
+        "overflows": []
+      },
+      "768": {
+        "width": 768,
+        "scroll": 768,
+        "body": 768,
+        "overflows": []
+      },
+      "390": {
+        "width": 390,
+        "scroll": 390,
+        "body": 390,
+        "overflows": []
+      },
+      "320": {
+        "width": 320,
+        "scroll": 320,
+        "body": 320,
+        "overflows": []
+      }
+    }
+  }
+}
