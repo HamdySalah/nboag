@@ -195,6 +195,12 @@ body.ui-admin{--bg:#f8faf4;--teal-100:#e7f5ef;--teal-300:var(--nb-mint);--teal-6
 .ui-admin .stat-card:nth-child(3n){border-top-color:var(--nb-yellow)}
 .ui-admin .stat-card:after{background:#e7f5ef;opacity:.6}
 .ui-admin .stat-card>*{position:relative;z-index:1}
+.ui-admin .qa-card{border:1px solid #bed5c5;border-radius:18px;background:#e8f5ed;color:#24695e;box-shadow:0 4px 0 #233b3905}
+.ui-admin .qa-card .qa-icon{background:#c7e9da;color:#24695e;border-radius:16px}
+.ui-admin .qa-card:nth-child(3n+1){background:#ffe8ed;border-color:#f4bfcb;color:#9c2442}
+.ui-admin .qa-card:nth-child(3n+1) .qa-icon{background:#ffd1dc;color:#9c2442}
+.ui-admin .qa-card:nth-child(3n){background:#fff4c9;border-color:#e7d286;color:#695000}
+.ui-admin .qa-card:nth-child(3n) .qa-icon{background:#ffe58f;color:#695000}
 .ui-admin .stat-value{font-size:29px;color:var(--nb-ink)}.ui-admin .stat-label{font-size:14px;color:var(--nb-muted)}
 .ui-admin :is(.btn,.icon-btn,input:not([type=checkbox]):not([type=radio]),select){min-height:42px;border-radius:12px}
 .ui-admin .btn-primary{background:var(--nb-green)!important;color:white!important;box-shadow:0 3px 0 #163f37!important}
